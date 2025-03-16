@@ -26,14 +26,12 @@ Bugfixes:
 2. ✅ CSV parsing verbeteren: Ondersteuning voor verschillende formaten en delimiters
 3. ✅ Productie & Verbruik (Dagelijks) grafiek fix: Oplossen van het probleem dat de grafiek niet getoond wordt
 4. ✅ Bug in warmwaterboiler pagina: Foutmelding na 'bereken' knop door syntax fout in visualization.py (PR #21)
-5. 🆕 Bug in warmwaterboiler pagina: Oplossen van foutmelding na klikken op 'bereken' knop (Issue #22)
+5. ✅ Bug in warmwaterboiler pagina: Oplossen van foutmelding na klikken op 'bereken' knop (Issue #22)
 
 De vervolgstappen (must-haves 7-8) zijn noodzakelijk voor de basiswerking van de applicatie. 
 
 De volgende stap is het implementeren van de Visualisatiemodule (Must-have 7), die een centrale plaats zal zijn waar gebruikers de resultaten van verschillende opslagmethoden kunnen bekijken en vergelijken. Dit omvat het consolideren van grafieken en visuals die al in de verschillende modules aanwezig zijn, evenals nieuwe visualisaties die meerdere opties naast elkaar tonen voor gemakkelijke vergelijking.
 
 Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8) om gebruikers te helpen de applicatie te installeren en te gebruiken.
-
-Ook is er nog een bugfix (Issue #22) die aandacht vereist voor een foutmelding die optreedt na het klikken op de 'bereken' knop in de warmwaterboiler pagina.
 
 Al deze vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie.
