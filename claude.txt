@@ -9,13 +9,15 @@ De applicatie heeft een modulaire structuur met een Streamlit-gebaseerde webinte
 - Visualisatie en rapportage
 - Configuratiebeheer
 - Utilities
+- UI Componenten
+- Pagina modules
 
 3. Modules:
 
 Naam: app.py
 Status: Volledig geïmplementeerd
 Bestandsnaam: app.py
-Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tussen modules verzorgt. Bevat pagina's voor Home, Data Upload, Warmwaterboiler, Accu, Visualisatie en Configuratie.
+Functionaliteit: Minimale hoofdapplicatie die Streamlit UI initialiseert, pagina's importeert en navigatie coördineert.
 Afhankelijkheid: Alle andere modules
 
 Naam: data_processor
@@ -56,9 +58,21 @@ Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
 
 Naam: utils
 Status: Basis geïmplementeerd
-Bestandsnaam: utils.py
-Functionaliteit: Hulpfuncties gebruikt door verschillende modules
+Bestandsnaam: utils/__init__.py, utils/ui_helpers.py
+Functionaliteit: Hulpfuncties gebruikt door verschillende modules, inclusief UI helpers zoals download links, error messages, en data formatting
 Afhankelijkheid: Geen
+
+Naam: components
+Status: Volledig geïmplementeerd
+Bestandsnaam: components/__init__.py, components/sidebar.py, components/data_display.py
+Functionaliteit: Herbruikbare UI componenten zoals sidebar navigatie en data weergave functies
+Afhankelijkheid: utils
+
+Naam: pages
+Status: Volledig geïmplementeerd
+Bestandsnaam: pages/__init__.py, pages/home.py, pages/data_upload.py, pages/boiler.py, pages/battery.py, pages/visualization.py, pages/configuration.py
+Functionaliteit: Implementatie van de verschillende pagina's in de applicatie
+Afhankelijkheid: components, utils, alle core modules
 
 Naam: tests
 Status: Gedeeltelijk geïmplementeerd
