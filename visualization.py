@@ -256,8 +256,8 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         
         # Aggregate by day
         daily_df = df.groupby('date').agg({
-            'boiler_energy_needed_kwh': 'sum',
-            'boiler_energy_used_kwh': 'sum',
+            'energy_needed_kwh': 'sum',
+            'energy_used_kwh': 'sum',
             'gas_saved_m3': 'sum'
         }).reset_index()
         
@@ -273,7 +273,7 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
     # Add energy needed
     fig.add_trace(go.Scatter(
         x=plot_df[x_col],
-        y=plot_df['boiler_energy_needed_kwh'],
+        y=plot_df['energy_needed_kwh'],
         name='Energy Needed',
         line=dict(color='rgb(31, 119, 180)', width=2, dash='dash')
     ))
@@ -281,7 +281,7 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
     # Add energy used from solar
     fig.add_trace(go.Bar(
         x=plot_df[x_col],
-        y=plot_df['boiler_energy_used_kwh'],
+        y=plot_df['energy_used_kwh'],
         name='Solar Energy Used',
         marker_color='rgba(50, 171, 96, 0.7)'
     ))
@@ -315,6 +315,321 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
             xanchor="right",
             x=1
         )
+    )
+    
+    return fig
+
+
+def plot_boiler_daily_performance(boiler_results: Dict[str, Any]) -> go.Figure:
+    """
+    Create a comprehensive daily performance plot for the boiler.
+    
+    Args:
+        boiler_results: Dictionary with boiler calculation results
+        
+    Returns:
+        Plotly figure object
+    """
+    if not boiler_results or 'daily_agg' not in boiler_results:
+        return go.Figure()
+    
+    # Get the daily aggregated data
+    daily_df = boiler_results['daily_agg']
+    
+    # Create figure with secondary y-axis
+    fig = go.Figure()
+    
+    # Add gas needed trace
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['gas_needed_m3'],
+        name='Gas Nodig (zonder zonne-energie)',
+        marker_color='rgba(220, 220, 220, 0.7)'
+    ))
+    
+    # Add gas saved trace
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['gas_saved_m3'],
+        name='Gas Bespaard (met zonne-energie)',
+        marker_color='rgba(50, 171, 96, 0.7)'
+    ))
+    
+    # Add coverage percentage line
+    fig.add_trace(go.Scatter(
+        x=daily_df['period'],
+        y=daily_df['heating_coverage'],
+        name='Dekkingspercentage',
+        line=dict(color='rgba(219, 64, 82, 1)', width=2),
+        yaxis="y2"
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Dagelijkse Gasbesparing en Verwarmingsdekking',
+        xaxis_title='Datum',
+        yaxis_title='Gas (m³)',
+        yaxis2=dict(
+            title='Dekking (%)',
+            titlefont=dict(color='rgba(219, 64, 82, 1)'),
+            tickfont=dict(color='rgba(219, 64, 82, 1)'),
+            overlaying='y',
+            side='right',
+            range=[0, 100]
+        ),
+        template='plotly_white',
+        barmode='overlay',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_boiler_monthly_performance(boiler_results: Dict[str, Any]) -> go.Figure:
+    """
+    Create a comprehensive monthly performance plot for the boiler.
+    
+    Args:
+        boiler_results: Dictionary with boiler calculation results
+        
+    Returns:
+        Plotly figure object
+    """
+    if not boiler_results or 'monthly_agg' not in boiler_results:
+        return go.Figure()
+    
+    # Get the monthly aggregated data
+    monthly_df = boiler_results['monthly_agg']
+    
+    # Create figure with secondary y-axis
+    fig = go.Figure()
+    
+    # Add financial savings trace
+    fig.add_trace(go.Bar(
+        x=monthly_df['period'],
+        y=monthly_df['financial_savings'],
+        name='Financiële Besparing (€)',
+        marker_color='rgba(50, 171, 96, 0.7)'
+    ))
+    
+    # Add surplus utilization trace
+    fig.add_trace(go.Scatter(
+        x=monthly_df['period'],
+        y=monthly_df['surplus_utilization'],
+        name='Benuttingspercentage',
+        line=dict(color='rgba(31, 119, 180, 1)', width=2),
+        yaxis="y2"
+    ))
+    
+    # Add heating coverage trace
+    fig.add_trace(go.Scatter(
+        x=monthly_df['period'],
+        y=monthly_df['heating_coverage'],
+        name='Verwarmingsdekking',
+        line=dict(color='rgba(219, 64, 82, 1)', width=2, dash='dot'),
+        yaxis="y2"
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Maandelijkse Financiële Besparing en Efficiëntie',
+        xaxis_title='Maand',
+        yaxis_title='Besparing (€)',
+        yaxis2=dict(
+            title='Percentage (%)',
+            titlefont=dict(color='rgba(31, 119, 180, 1)'),
+            tickfont=dict(color='rgba(31, 119, 180, 1)'),
+            overlaying='y',
+            side='right',
+            range=[0, 100]
+        ),
+        template='plotly_white',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_boiler_simulation_detail(boiler_results: Dict[str, Any], sample_date=None) -> go.Figure:
+    """
+    Create a detailed plot of the boiler simulation for a specific day.
+    
+    Args:
+        boiler_results: Dictionary with boiler calculation results
+        sample_date: Optional date to plot. If None, a representative date will be chosen.
+        
+    Returns:
+        Plotly figure object
+    """
+    if not boiler_results or 'result_df' not in boiler_results:
+        return go.Figure()
+    
+    # Get the result dataframe
+    all_df = boiler_results['result_df']
+    
+    # Convert to datetime if not already
+    if not pd.api.types.is_datetime64_dtype(all_df['timestamp']):
+        all_df['timestamp'] = pd.to_datetime(all_df['timestamp'])
+    
+    # If sample_date is not provided, find a representative date
+    if sample_date is None:
+        # Find a day with significant solar surplus
+        daily_surplus = all_df.groupby(all_df['timestamp'].dt.date)['surplus_energy_kwh'].sum()
+        if len(daily_surplus) > 0:
+            # Get a day with high surplus (in top 25%)
+            top_days = daily_surplus.sort_values(ascending=False).head(max(1, len(daily_surplus) // 4))
+            sample_date = top_days.index[min(3, len(top_days) - 1)]
+    
+    # Filter for the sample date
+    sample_df = all_df[all_df['timestamp'].dt.date == sample_date].copy() if sample_date else all_df.copy()
+    
+    if len(sample_df) == 0:
+        return go.Figure()
+    
+    # Create figure with multiple y-axes
+    fig = go.Figure()
+    
+    # Add water temperature
+    fig.add_trace(go.Scatter(
+        x=sample_df['timestamp'],
+        y=sample_df['water_temp'],
+        name='Watertemperatuur (°C)',
+        line=dict(color='rgba(31, 119, 180, 1)', width=2)
+    ))
+    
+    # Add heat energy in boiler
+    fig.add_trace(go.Scatter(
+        x=sample_df['timestamp'],
+        y=sample_df['heat_energy_kwh'],
+        name='Opgeslagen Warmte (kWh)',
+        line=dict(color='rgba(255, 127, 14, 1)', width=2, dash='dot'),
+        yaxis="y3"
+    ))
+    
+    # Add surplus energy
+    fig.add_trace(go.Bar(
+        x=sample_df['timestamp'],
+        y=sample_df['surplus_energy_kwh'],
+        name='Surplus Energie (kWh)',
+        marker_color='rgba(50, 171, 96, 0.4)',
+        yaxis="y3"
+    ))
+    
+    # Add used energy
+    fig.add_trace(go.Bar(
+        x=sample_df['timestamp'],
+        y=sample_df['energy_used_kwh'],
+        name='Gebruikte Energie (kWh)',
+        marker_color='rgba(50, 171, 96, 0.9)',
+        yaxis="y3"
+    ))
+    
+    # Add hot water demand
+    fig.add_trace(go.Scatter(
+        x=sample_df['timestamp'],
+        y=sample_df['hot_water_demand_l'],
+        name='Warmwaterverbruik (L)',
+        line=dict(color='rgba(148, 103, 189, 1)', width=2),
+        yaxis="y2"
+    ))
+    
+    # Add heat loss
+    fig.add_trace(go.Scatter(
+        x=sample_df['timestamp'],
+        y=sample_df['heat_loss_kwh'],
+        name='Warmteverlies (kWh)',
+        line=dict(color='rgba(214, 39, 40, 1)', width=2, dash='dot'),
+        yaxis="y3"
+    ))
+    
+    # Format the date for the title
+    date_str = sample_date.strftime('%d-%m-%Y') if hasattr(sample_date, 'strftime') else "sample period"
+    
+    # Customize layout
+    fig.update_layout(
+        title=f'Gedetailleerde Boiler Simulatie voor {date_str}',
+        xaxis_title='Tijd',
+        yaxis=dict(
+            title='Temperatuur (°C)',
+            titlefont=dict(color='rgba(31, 119, 180, 1)'),
+            tickfont=dict(color='rgba(31, 119, 180, 1)'),
+            domain=[0, 0.85]
+        ),
+        yaxis2=dict(
+            title='Water (L)',
+            titlefont=dict(color='rgba(148, 103, 189, 1)'),
+            tickfont=dict(color='rgba(148, 103, 189, 1)'),
+            overlaying='y',
+            side='right',
+            position=0.86
+        ),
+        yaxis3=dict(
+            title='Energie (kWh)',
+            titlefont=dict(color='rgba(50, 171, 96, 1)'),
+            tickfont=dict(color='rgba(50, 171, 96, 1)'),
+            anchor='free',
+            overlaying='y',
+            side='right',
+            position=0.93
+        ),
+        template='plotly_white',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_boiler_usage_profile(hourly_profile: Dict[int, float]) -> go.Figure:
+    """
+    Create a bar chart of the hourly hot water usage profile.
+    
+    Args:
+        hourly_profile: Dictionary mapping hour of day (0-23) to usage fraction
+        
+    Returns:
+        Plotly figure object
+    """
+    # Convert profile to sorted list of tuples
+    profile_items = sorted(hourly_profile.items())
+    
+    # Extract hours and percentages
+    hours = [h for h, _ in profile_items]
+    percentages = [p * 100 for _, p in profile_items]
+    
+    # Create figure
+    fig = go.Figure()
+    
+    # Add bar chart
+    fig.add_trace(go.Bar(
+        x=[f"{h}:00" for h in hours],
+        y=percentages,
+        marker_color='rgba(50, 171, 96, 0.7)'
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Warmwaterverbruik Profiel',
+        xaxis_title='Uur van de dag',
+        yaxis_title='Percentage (%)',
+        template='plotly_white'
     )
     
     return fig
