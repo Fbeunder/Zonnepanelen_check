@@ -7,6 +7,10 @@ import streamlit as st
 import os
 import tempfile
 import pathlib
+import sys
+
+# Voeg de root directory toe aan het pad voor juiste imports
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
 from components.data_display import show_data_metrics, show_energy_chart
 import visualization as viz
 
@@ -123,5 +127,9 @@ Date/Time,Energy Produced (Wh),Energy Consumed (Wh),Exported to Grid (Wh),Import
         # Show production & consumption chart
         st.subheader("Productie & Verbruik (Dagelijks)")
         if data_processor.daily_data is not None:
-            fig = viz.plot_energy_production_consumption(data_processor.data, period='daily')
-            st.plotly_chart(fig, use_container_width=True)
+            # Gebruik nu de show_energy_chart component voor betere herbruikbaarheid
+            show_energy_chart(data_processor.daily_data, period='daily')
+            
+            # Alternatieve methode met directe aanroep van viz module
+            # fig = viz.plot_energy_production_consumption(data_processor.data, period='daily')
+            # st.plotly_chart(fig, use_container_width=True)
