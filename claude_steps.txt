@@ -6,7 +6,7 @@ Must-haves:
 3. ✅ Config manager implementeren: Configuratiebeheer voor het opslaan van gebruikersvariabelen
 4. ✅ Basis-UI implementeren: Streamlit applicatie met navigatie tussen modules
    ✅ 4.1 App.py opsplitsen: Verbeterde modulaire opzet met pages, components en utils packages
-5. Warmwaterboiler module implementeren: Berekeningen voor warmwaterboileropslag
+5. ✅ Warmwaterboiler module implementeren: Berekeningen voor warmwaterboileropslag (PR #16)
 6. Accu module implementeren: Berekeningen voor accu-opslag
 7. Visualisatiemodule implementeren: Grafieken en rapporten voor energiebesparingen
 8. Requirements en README toevoegen: Documentatie en installatie-instructies
@@ -26,4 +26,4 @@ Bugfixes:
 2. ✅ CSV parsing verbeteren: Ondersteuning voor verschillende formaten en delimiters
 3. ✅ Productie & Verbruik (Dagelijks) grafiek fix: Oplossen van het probleem dat de grafiek niet getoond wordt
 
-De vervolgstappen (must-haves 5-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het volledig implementeren van de Warmwaterboiler module (Issue #9), die de berekeningen voor warmwaterboileropslag verder uitwerkt op basis van de bestaande basis-implementatie.
+De vervolgstappen (must-haves 6-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het implementeren van de Accu module (Issue #10), die de berekeningen voor energieopslag in een batterij uitwerkt. Deze module zal vergelijkbaar zijn met de warmwaterboiler module, maar gericht op het opslaan van elektriciteit voor later gebruik in plaats van warmte.
