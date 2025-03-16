@@ -597,9 +597,9 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         yaxis="y2"
     ))
     
-    # Customize layout
+    # Customize layout (fixed version)
     fig.update_layout(
-        title='Boiler Energy Usage and Gas Savings',
+        title='Boiler Energy Usage and Gas Savings (Fixed)',
         xaxis_title='Time',
         yaxis_title='Energy (kWh)',
         yaxis2=dict(
