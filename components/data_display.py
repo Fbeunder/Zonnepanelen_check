@@ -41,6 +41,9 @@ def show_energy_chart(data, period='daily'):
     if data is None or data.empty:
         st.info("Geen data beschikbaar voor visualisatie.")
         return
+
+    # Debug info - uncomment if needed to diagnose issues
+    # st.write("Debug: Beschikbare kolommen in data", list(data.columns))
     
     # Determine the appropriate date column based on period
     if period == 'daily':
@@ -86,41 +89,56 @@ def show_energy_chart(data, period='daily'):
     # Create figure
     fig = go.Figure()
     
-    # Check for the different possible column name formats
-    production_columns = ['Energy Produced (kWh)', 'energy_produced_kwh', 'Energy Produced (Wh)_kWh']
-    consumption_columns = ['Energy Consumed (kWh)', 'energy_consumed_kwh', 'Energy Consumed (Wh)_kWh']
-    
-    # Find the first matching production column
-    production_col = None
-    for col in production_columns:
-        if col in data.columns:
-            production_col = col
-            break
-    
-    # Find the first matching consumption column
-    consumption_col = None
-    for col in consumption_columns:
-        if col in data.columns:
-            consumption_col = col
-            break
-    
-    # Add production if available
-    if production_col is not None:
+    # Prioritize standardized column names first
+    if 'energy_produced_kwh' in data.columns:
         fig.add_trace(go.Bar(
             x=x_values,
-            y=data[production_col],
+            y=data['energy_produced_kwh'],
             name='Productie',
             marker_color='rgba(50, 171, 96, 0.7)'
         ))
-    
-    # Add consumption if available
-    if consumption_col is not None:
+    # Fall back to alternative naming schemes if standardized names not found
+    elif 'Energy Produced (kWh)' in data.columns:
         fig.add_trace(go.Bar(
             x=x_values,
-            y=data[consumption_col],
+            y=data['Energy Produced (kWh)'],
+            name='Productie',
+            marker_color='rgba(50, 171, 96, 0.7)'
+        ))
+    elif 'Energy Produced (Wh)_kWh' in data.columns:
+        fig.add_trace(go.Bar(
+            x=x_values,
+            y=data['Energy Produced (Wh)_kWh'],
+            name='Productie',
+            marker_color='rgba(50, 171, 96, 0.7)'
+        ))
+    else:
+        st.warning("Geen productiedata gevonden in het juiste formaat.")
+    
+    # Similar approach for consumption data
+    if 'energy_consumed_kwh' in data.columns:
+        fig.add_trace(go.Bar(
+            x=x_values,
+            y=data['energy_consumed_kwh'],
             name='Verbruik',
             marker_color='rgba(219, 64, 82, 0.7)'
         ))
+    elif 'Energy Consumed (kWh)' in data.columns:
+        fig.add_trace(go.Bar(
+            x=x_values,
+            y=data['Energy Consumed (kWh)'],
+            name='Verbruik',
+            marker_color='rgba(219, 64, 82, 0.7)'
+        ))
+    elif 'Energy Consumed (Wh)_kWh' in data.columns:
+        fig.add_trace(go.Bar(
+            x=x_values,
+            y=data['Energy Consumed (Wh)_kWh'],
+            name='Verbruik',
+            marker_color='rgba(219, 64, 82, 0.7)'
+        ))
+    else:
+        st.warning("Geen verbruiksdata gevonden in het juiste formaat.")
     
     # Customize layout
     fig.update_layout(
