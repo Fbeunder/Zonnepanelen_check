@@ -1,0 +1,44 @@
+# Bestanden om uit te sluiten van git
+claude.txt
+claude_steps.txt
+develop_context.txt
+
+# Python bestanden
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Streamlit
+.streamlit/
+
+# Virtuele omgeving
+venv/
+ENV/
+
+# IDE bestanden
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Overige
+.DS_Store
+.env
+.env.local
