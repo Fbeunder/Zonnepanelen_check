@@ -6,6 +6,11 @@ This module contains the visualization and comparison page functionality.
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import sys
+import pathlib
+
+# Voeg de root directory toe aan het pad voor juiste imports
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
 import visualization as viz
 
 
