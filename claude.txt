@@ -13,49 +13,49 @@ De applicatie heeft een modulaire structuur met een Streamlit-gebaseerde webinte
 3. Modules:
 
 Naam: app.py
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: app.py
 Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tussen modules verzorgt
 Afhankelijkheid: Alle andere modules
 
 Naam: data_processor
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: data_processor.py
 Functionaliteit: Inladen en verwerken van CSV-data met productie- en verbruiksgegevens
 Afhankelijkheid: Geen
 
 Naam: config_manager
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: config_manager.py
 Functionaliteit: Beheren van gebruikersconfiguratie en instellingen, opslaan van variabelen
 Afhankelijkheid: Geen
 
 Naam: storage_calculator
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: storage_calculator.py
 Functionaliteit: Basisberekeningen voor energieopslag die door specifieke modules gebruikt worden
 Afhankelijkheid: data_processor
 
 Naam: boiler_module
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: boiler_module.py
 Functionaliteit: Berekeningen voor warmwaterboileropslag, gasbesparing en kostenbesparing
 Afhankelijkheid: storage_calculator, data_processor
 
 Naam: battery_module
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: battery_module.py
 Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing
 Afhankelijkheid: storage_calculator, data_processor
 
 Naam: visualization
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: visualization.py
 Functionaliteit: Grafieken en visualisaties voor de resultaten
 Afhankelijkheid: Alle opslagmodules, data_processor
 
 Naam: utils
-Status: Nog niet gestart
+Status: Basis geïmplementeerd
 Bestandsnaam: utils.py
 Functionaliteit: Hulpfuncties gebruikt door verschillende modules
 Afhankelijkheid: Geen
