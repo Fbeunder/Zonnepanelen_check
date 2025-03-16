@@ -22,22 +22,64 @@ Zonnepanelen Check analyseert historische gegevens over energieproductie en -ver
 - Python 3.8 of hoger
 - pip (Python package manager)
 
-### Stappen
+### Virtual Environment aanmaken (aanbevolen)
+
+Het is aanbevolen om een virtuele omgeving te gebruiken voor deze applicatie om pakketconflicten te voorkomen.
+
+#### Windows
+```bash
+# Aanmaken van de virtuele omgeving
+python -m venv venv
+
+# Activeren van de virtuele omgeving
+venv\Scripts\activate
+
+# Je terminal moet nu (venv) tonen aan het begin van de regel
+```
+
+#### macOS / Linux
+```bash
+# Aanmaken van de virtuele omgeving
+python3 -m venv venv
+
+# Activeren van de virtuele omgeving
+source venv/bin/activate
+
+# Je terminal moet nu (venv) tonen aan het begin van de regel
+```
+
+### Installatiestappen
+
 1. Clone deze repository:
 ```bash
 git clone https://github.com/Fbeunder/Zonnepanelen_check.git
 cd Zonnepanelen_check
 ```
 
-2. Installeer de benodigde packages:
+2. Maak een virtuele omgeving aan en activeer deze (zie hierboven)
+
+3. Installeer de benodigde packages:
 ```bash
 pip install -r requirements.txt
 ```
 
+4. Deactiveren van de virtuele omgeving (wanneer je klaar bent):
+```bash
+deactivate
+```
+
 ## 🔧 Gebruik
 
-Start de applicatie:
+Activeer eerst de virtuele omgeving (indien gebruikt) en start de applicatie:
+
 ```bash
+# Activeer de virtuele omgeving (indien nodig)
+# Windows:
+venv\Scripts\activate
+# macOS / Linux:
+source venv/bin/activate
+
+# Start de applicatie
 streamlit run app.py
 ```
 
