@@ -6,7 +6,7 @@ simulating and calculating energy storage options.
 """
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple, Union, Optional
+from typing import Dict, List, Tuple, Union, Optional, Any
 from abc import ABC, abstractmethod
 import utils
 
