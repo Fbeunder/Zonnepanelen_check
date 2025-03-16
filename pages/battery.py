@@ -4,6 +4,11 @@ Battery page module for the Zonnepanelen_check application.
 This module contains the battery analysis page functionality.
 """
 import streamlit as st
+import sys
+import pathlib
+
+# Voeg de root directory toe aan het pad voor juiste imports
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
 from battery_module import BatteryCalculator
 import visualization as viz
 from components.data_display import show_storage_results
