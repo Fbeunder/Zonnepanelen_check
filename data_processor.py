@@ -45,6 +45,7 @@ class DataProcessor:
         self.weekly_data = None
         self.monthly_data = None
         self.file_path = None
+        self.file_name = None  # We'll store the filename separately
         self.time_interval = None  # Will store detected time interval in minutes
     
     def load_data(self, file_path: str) -> bool:
@@ -90,6 +91,8 @@ class DataProcessor:
             # Store the data
             self.data = df
             self.file_path = file_path
+            # Save just the filename separate from the path
+            self.file_name = os.path.basename(file_path)
             
             # Process the data
             self.process_data()
@@ -458,20 +461,34 @@ class DataProcessor:
         Returns:
             Dictionary with file information
         """
-        if self.file_path is None or self.data is None:
+        if self.data is None:
             return {}
         
-        file_path = Path(self.file_path)
-        
-        return {
-            'file_name': file_path.name,
-            'file_size_kb': round(file_path.stat().st_size / 1024, 2),
+        # Basisinformatie verzamelen zonder afhankelijkheid van bestandspad
+        info = {
+            'file_name': self.file_name or "Onbekend",
             'record_count': len(self.data),
             'column_count': len(self.data.columns),
             'time_interval_minutes': self.time_interval,
             'first_record': self.data['Date/Time'].min().strftime('%Y-%m-%d %H:%M'),
             'last_record': self.data['Date/Time'].max().strftime('%Y-%m-%d %H:%M')
         }
+        
+        # Alleen bestandsgrootte bepalen als het bestand bestaat en toegankelijk is
+        if self.file_path is not None:
+            try:
+                file_path = Path(self.file_path)
+                if file_path.exists():
+                    info['file_size_kb'] = round(file_path.stat().st_size / 1024, 2)
+                else:
+                    info['file_size_kb'] = 0
+            except (FileNotFoundError, OSError):
+                # Bestand bestaat niet meer of is niet toegankelijk
+                info['file_size_kb'] = 0
+        else:
+            info['file_size_kb'] = 0
+            
+        return info
     
     def get_hourly_averages(self) -> pd.DataFrame:
         """
