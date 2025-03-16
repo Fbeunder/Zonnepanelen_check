@@ -1,6 +1,6 @@
 [ui]
 hideTopBar = false
-hideSidebarNav = true  # Hide the default streamlit navigation
+hideSidebarNav = false  # Toon de standaard streamlit navigatie
 
 [server]
 enableStaticServing = true
