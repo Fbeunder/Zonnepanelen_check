@@ -11,6 +11,7 @@ import logging
 import os
 from pathlib import Path
 import utils
+import io
 
 # Configure logging
 logging.basicConfig(
@@ -69,9 +70,58 @@ class DataProcessor:
                 logger.error(f"File is not a CSV: {file_path}")
                 return False
             
-            # Attempt to load the CSV file
+            # Attempt to load the CSV file with different parsers and delimiters
             logger.info(f"Loading CSV file: {file_path}")
-            df = pd.read_csv(file_path)
+            
+            # Read the file content
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Try different parsing approaches
+            # 1. Standard comma delimiter
+            try:
+                logger.info("Trying standard CSV parsing with comma delimiter")
+                df = pd.read_csv(io.StringIO(content), sep=',')
+                # Check if we have the expected columns
+                if self._has_required_columns(df):
+                    logger.info("Successfully parsed with standard comma delimiter")
+                else:
+                    raise ValueError("Missing required columns")
+            except Exception as e1:
+                logger.warning(f"Standard parsing failed: {str(e1)}")
+                
+                # 2. Try fixing the data format - handle potential space issues
+                try:
+                    logger.info("Trying to fix potential space issues in CSV")
+                    # Replace potential spaces after commas
+                    fixed_content = content
+                    # Replace multiple spaces with a single space
+                    fixed_content = ' '.join(fixed_content.split())
+                    # Make sure there's proper delimiter between columns
+                    fixed_content = fixed_content.replace(" ", ",")
+                    # Remove duplicate commas
+                    while ",," in fixed_content:
+                        fixed_content = fixed_content.replace(",,", ",")
+                    
+                    df = pd.read_csv(io.StringIO(fixed_content), sep=',')
+                    if self._has_required_columns(df):
+                        logger.info("Successfully parsed after fixing spaces")
+                    else:
+                        raise ValueError("Missing required columns after fixing spaces")
+                except Exception as e2:
+                    logger.warning(f"Fixed format parsing failed: {str(e2)}")
+                    
+                    # 3. Try with different delimiters
+                    try:
+                        logger.info("Trying with semicolon delimiter")
+                        df = pd.read_csv(io.StringIO(content), sep=';')
+                        if self._has_required_columns(df):
+                            logger.info("Successfully parsed with semicolon delimiter")
+                        else:
+                            raise ValueError("Missing required columns with semicolon delimiter")
+                    except Exception as e3:
+                        logger.error(f"All parsing attempts failed: {str(e3)}")
+                        return False
             
             # Check if required columns exist
             self._validate_columns(df)
@@ -103,6 +153,11 @@ class DataProcessor:
         except Exception as e:
             logger.error(f"Error loading data: {str(e)}")
             return False
+    
+    def _has_required_columns(self, df: pd.DataFrame) -> bool:
+        """Check if DataFrame has the minimum required columns."""
+        required_cols = ['Date/Time', 'Energy Produced (Wh)', 'Energy Consumed (Wh)']
+        return all(col in df.columns for col in required_cols)
     
     def _validate_columns(self, df: pd.DataFrame) -> None:
         """
