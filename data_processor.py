@@ -375,12 +375,18 @@ class DataProcessor:
         
         # Convert to more readable units (kWh)
         for col in energy_cols:
-            if 'Wh' in col:
-                daily[col.replace('(Wh)', '(kWh)')] = utils.convert_wh_to_kwh(daily[col])
+            if 'Wh' in col and '(kWh)' not in col:  # Check if not already converted
+                # Create a new column with kWh values but keep the old one as well
+                new_col_name = col.replace('(Wh)', '(kWh)') if '(Wh)' in col else f"{col}_kWh"
+                daily[new_col_name] = utils.convert_wh_to_kwh(daily[col])
         
         # Also convert surplus_energy if it exists
         if 'surplus_energy' in energy_cols:
             daily['surplus_energy_kwh'] = utils.convert_wh_to_kwh(daily['surplus_energy'])
+        
+        # Add standardized column names for the charts
+        daily['energy_produced_kwh'] = utils.convert_wh_to_kwh(daily['Energy Produced (Wh)'])
+        daily['energy_consumed_kwh'] = utils.convert_wh_to_kwh(daily['Energy Consumed (Wh)'])
             
         return daily
     
@@ -409,12 +415,18 @@ class DataProcessor:
         
         # Convert to more readable units (kWh)
         for col in energy_cols:
-            if 'Wh' in col:
-                weekly[col.replace('(Wh)', '(kWh)')] = utils.convert_wh_to_kwh(weekly[col])
+            if 'Wh' in col and '(kWh)' not in col:  # Check if not already converted
+                # Create a new column with kWh values but keep the old one as well
+                new_col_name = col.replace('(Wh)', '(kWh)') if '(Wh)' in col else f"{col}_kWh"
+                weekly[new_col_name] = utils.convert_wh_to_kwh(weekly[col])
         
         # Also convert surplus_energy if it exists
         if 'surplus_energy' in energy_cols:
             weekly['surplus_energy_kwh'] = utils.convert_wh_to_kwh(weekly['surplus_energy'])
+        
+        # Add standardized column names for the charts
+        weekly['energy_produced_kwh'] = utils.convert_wh_to_kwh(weekly['Energy Produced (Wh)'])
+        weekly['energy_consumed_kwh'] = utils.convert_wh_to_kwh(weekly['Energy Consumed (Wh)'])
             
         return weekly
     
@@ -443,12 +455,18 @@ class DataProcessor:
         
         # Convert to more readable units (kWh)
         for col in energy_cols:
-            if 'Wh' in col:
-                monthly[col.replace('(Wh)', '(kWh)')] = utils.convert_wh_to_kwh(monthly[col])
+            if 'Wh' in col and '(kWh)' not in col:  # Check if not already converted
+                # Create a new column with kWh values but keep the old one as well
+                new_col_name = col.replace('(Wh)', '(kWh)') if '(Wh)' in col else f"{col}_kWh"
+                monthly[new_col_name] = utils.convert_wh_to_kwh(monthly[col])
         
         # Also convert surplus_energy if it exists
         if 'surplus_energy' in energy_cols:
             monthly['surplus_energy_kwh'] = utils.convert_wh_to_kwh(monthly['surplus_energy'])
+        
+        # Add standardized column names for the charts
+        monthly['energy_produced_kwh'] = utils.convert_wh_to_kwh(monthly['Energy Produced (Wh)'])
+        monthly['energy_consumed_kwh'] = utils.convert_wh_to_kwh(monthly['Energy Consumed (Wh)'])
             
         return monthly
     
@@ -567,12 +585,18 @@ class DataProcessor:
         
         # Convert to kWh
         for col in energy_cols:
-            if 'Wh' in col:
-                hourly_avg[col.replace('(Wh)', '(kWh)')] = utils.convert_wh_to_kwh(hourly_avg[col])
+            if 'Wh' in col and '(kWh)' not in col:  # Check if not already converted
+                # Create a new column with kWh values but keep the old one as well
+                new_col_name = col.replace('(Wh)', '(kWh)') if '(Wh)' in col else f"{col}_kWh"
+                hourly_avg[new_col_name] = utils.convert_wh_to_kwh(hourly_avg[col])
         
         # Also convert surplus_energy if it exists
         if 'surplus_energy' in energy_cols:
             hourly_avg['surplus_energy_kwh'] = utils.convert_wh_to_kwh(hourly_avg['surplus_energy'])
+        
+        # Add standardized column names for the charts
+        hourly_avg['energy_produced_kwh'] = utils.convert_wh_to_kwh(hourly_avg['Energy Produced (Wh)'])
+        hourly_avg['energy_consumed_kwh'] = utils.convert_wh_to_kwh(hourly_avg['Energy Consumed (Wh)'])
         
         return hourly_avg
     
@@ -621,12 +645,18 @@ class DataProcessor:
         
         # Convert to kWh
         for col in energy_cols:
-            if 'Wh' in col:
-                seasonal_avg[col.replace('(Wh)', '(kWh)')] = utils.convert_wh_to_kwh(seasonal_avg[col])
+            if 'Wh' in col and '(kWh)' not in col:  # Check if not already converted
+                # Create a new column with kWh values but keep the old one as well
+                new_col_name = col.replace('(Wh)', '(kWh)') if '(Wh)' in col else f"{col}_kWh"
+                seasonal_avg[new_col_name] = utils.convert_wh_to_kwh(seasonal_avg[col])
         
         # Also convert surplus_energy if it exists
         if 'surplus_energy' in energy_cols:
             seasonal_avg['surplus_energy_kwh'] = utils.convert_wh_to_kwh(seasonal_avg['surplus_energy'])
+        
+        # Add standardized column names for the charts
+        seasonal_avg['energy_produced_kwh'] = utils.convert_wh_to_kwh(seasonal_avg['Energy Produced (Wh)'])
+        seasonal_avg['energy_consumed_kwh'] = utils.convert_wh_to_kwh(seasonal_avg['Energy Consumed (Wh)'])
         
         return seasonal_avg
     
