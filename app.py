@@ -5,7 +5,7 @@ This module contains the Streamlit application that provides the user interface
 for analyzing solar panel surplus energy storage options.
 
 The application is structured in modules:
-- pages/: Contains the individual page implementations
+- app_pages/: Contains the individual page implementations
 - components/: Contains reusable UI components
 - utils/: Contains utility functions
 """
@@ -17,12 +17,12 @@ from config_manager import ConfigManager
 import utils
 
 # Import page modules
-from pages.home import show_home_page
-from pages.data_upload import show_data_upload_page
-from pages.boiler import show_boiler_page
-from pages.battery import show_battery_page
-from pages.visualization import show_visualization_page
-from pages.configuration import show_configuration_page
+from app_pages.home import show_home_page
+from app_pages.data_upload import show_data_upload_page
+from app_pages.boiler import show_boiler_page
+from app_pages.battery import show_battery_page
+from app_pages.visualization import show_visualization_page
+from app_pages.configuration import show_configuration_page
 
 # Import components
 from components.sidebar import show_sidebar
