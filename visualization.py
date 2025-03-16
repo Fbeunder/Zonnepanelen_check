@@ -191,7 +191,7 @@ def plot_battery_state(battery_results: Dict[str, Any]) -> go.Figure:
     fig.add_trace(go.Scatter(
         x=df['timestamp'],
         y=df['battery_state_kwh'],
-        name='Battery State of Charge',
+        name='Batterij Laadtoestand (kWh)',
         line=dict(color='rgb(31, 119, 180)', width=2)
     ))
     
@@ -200,7 +200,7 @@ def plot_battery_state(battery_results: Dict[str, Any]) -> go.Figure:
     fig.add_trace(go.Bar(
         x=df.loc[mask_charge, 'timestamp'],
         y=df.loc[mask_charge, 'charged_kwh'],
-        name='Charged Energy',
+        name='Opgeladen Energie (kWh)',
         marker_color='rgba(50, 171, 96, 0.7)'
     ))
     
@@ -209,15 +209,317 @@ def plot_battery_state(battery_results: Dict[str, Any]) -> go.Figure:
     fig.add_trace(go.Bar(
         x=df.loc[mask_discharge, 'timestamp'],
         y=df.loc[mask_discharge, 'discharged_kwh'],
-        name='Discharged Energy',
+        name='Ontladen Energie (kWh)',
         marker_color='rgba(219, 64, 82, 0.7)'
     ))
     
     # Customize layout
     fig.update_layout(
-        title='Battery State of Charge and Energy Flows',
-        xaxis_title='Time',
-        yaxis_title='Energy (kWh)',
+        title='Accu Laadtoestand en Energiestromen',
+        xaxis_title='Tijd',
+        yaxis_title='Energie (kWh)',
+        template='plotly_white',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ),
+        barmode='group'
+    )
+    
+    return fig
+
+
+def plot_battery_daily_flows(battery_results: Dict[str, Any]) -> go.Figure:
+    """
+    Plot daily battery energy flows and savings.
+    
+    Args:
+        battery_results: Dictionary with battery calculation results
+        
+    Returns:
+        Plotly figure object
+    """
+    if not battery_results or 'daily_agg' not in battery_results:
+        return go.Figure()
+    
+    # Get the daily aggregated data
+    daily_df = battery_results['daily_agg']
+    
+    # Create figure with secondary y-axis
+    fig = go.Figure()
+    
+    # Add charged energy
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['charged_kwh'],
+        name='Opgeladen Energie (kWh)',
+        marker_color='rgba(50, 171, 96, 0.7)'
+    ))
+    
+    # Add discharged energy
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['discharged_kwh'],
+        name='Ontladen Energie (kWh)',
+        marker_color='rgba(219, 64, 82, 0.7)'
+    ))
+    
+    # Add financial savings line
+    fig.add_trace(go.Scatter(
+        x=daily_df['period'],
+        y=daily_df['total_savings_eur'],
+        name='Financiële Besparing (€)',
+        line=dict(color='rgba(255, 127, 14, 1)', width=2),
+        yaxis="y2"
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Dagelijkse Batterij Energiestromen en Besparingen',
+        xaxis_title='Datum',
+        yaxis_title='Energie (kWh)',
+        yaxis2=dict(
+            title='Besparing (€)',
+            titlefont=dict(color='rgba(255, 127, 14, 1)'),
+            tickfont=dict(color='rgba(255, 127, 14, 1)'),
+            overlaying='y',
+            side='right'
+        ),
+        template='plotly_white',
+        barmode='group',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_battery_monthly_performance(battery_results: Dict[str, Any]) -> go.Figure:
+    """
+    Plot monthly battery performance and savings.
+    
+    Args:
+        battery_results: Dictionary with battery calculation results
+        
+    Returns:
+        Plotly figure object
+    """
+    if not battery_results or 'monthly_agg' not in battery_results:
+        return go.Figure()
+    
+    # Get the monthly aggregated data
+    monthly_df = battery_results['monthly_agg']
+    
+    # Create figure with secondary y-axis
+    fig = go.Figure()
+    
+    # Add financial savings trace
+    fig.add_trace(go.Bar(
+        x=monthly_df['period'],
+        y=monthly_df['total_savings_eur'],
+        name='Financiële Besparing (€)',
+        marker_color='rgba(255, 127, 14, 0.7)'
+    ))
+    
+    # Add storage utilization trace
+    fig.add_trace(go.Scatter(
+        x=monthly_df['period'],
+        y=monthly_df['storage_utilization'],
+        name='Opslagbenutting (%)',
+        line=dict(color='rgba(31, 119, 180, 1)', width=2),
+        yaxis="y2"
+    ))
+    
+    # Add round-trip efficiency trace
+    fig.add_trace(go.Scatter(
+        x=monthly_df['period'],
+        y=monthly_df['round_trip_efficiency'],
+        name='Laad/ontlaad Efficiëntie (%)',
+        line=dict(color='rgba(50, 171, 96, 1)', width=2, dash='dot'),
+        yaxis="y2"
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Maandelijkse Besparingen en Batterij Efficiëntie',
+        xaxis_title='Maand',
+        yaxis_title='Besparing (€)',
+        yaxis2=dict(
+            title='Percentage (%)',
+            titlefont=dict(color='rgba(31, 119, 180, 1)'),
+            tickfont=dict(color='rgba(31, 119, 180, 1)'),
+            overlaying='y',
+            side='right',
+            range=[0, 100]
+        ),
+        template='plotly_white',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_battery_grid_impact(battery_results: Dict[str, Any]) -> go.Figure:
+    """
+    Plot the impact of battery storage on grid imports and exports.
+    
+    Args:
+        battery_results: Dictionary with battery calculation results
+        
+    Returns:
+        Plotly figure object
+    """
+    if not battery_results or 'daily_agg' not in battery_results:
+        return go.Figure()
+    
+    # Get the daily aggregated data
+    daily_df = battery_results['daily_agg']
+    
+    # Create figure
+    fig = go.Figure()
+    
+    # Add grid import
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['grid_import_kwh'],
+        name='Import van Net (kWh)',
+        marker_color='rgba(219, 64, 82, 0.7)'
+    ))
+    
+    # Add grid export
+    fig.add_trace(go.Bar(
+        x=daily_df['period'],
+        y=daily_df['grid_export_kwh'],
+        name='Export naar Net (kWh)',
+        marker_color='rgba(50, 171, 96, 0.7)'
+    ))
+    
+    # Customize layout
+    fig.update_layout(
+        title='Dagelijkse Netinteractie met Batterij',
+        xaxis_title='Datum',
+        yaxis_title='Energie (kWh)',
+        template='plotly_white',
+        barmode='group',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
+
+
+def plot_battery_simulation_detail(battery_results: Dict[str, Any], sample_date=None) -> go.Figure:
+    """
+    Create a detailed plot of the battery simulation for a specific day.
+    
+    Args:
+        battery_results: Dictionary with battery calculation results
+        sample_date: Optional date to plot. If None, a representative date will be chosen.
+        
+    Returns:
+        Plotly figure object
+    """
+    if not battery_results or 'result_df' not in battery_results:
+        return go.Figure()
+    
+    # Get the result dataframe
+    all_df = battery_results['result_df']
+    
+    # Convert to datetime if not already
+    if not pd.api.types.is_datetime64_dtype(all_df['timestamp']):
+        all_df['timestamp'] = pd.to_datetime(all_df['timestamp'])
+    
+    # If sample_date is not provided, find a representative date
+    if sample_date is None:
+        # Find a day with significant battery activity
+        daily_discharged = all_df.groupby(all_df['timestamp'].dt.date)['discharged_kwh'].sum()
+        if len(daily_discharged) > 0:
+            # Get a day with high discharge (in top 25%)
+            top_days = daily_discharged.sort_values(ascending=False).head(max(1, len(daily_discharged) // 4))
+            sample_date = top_days.index[min(3, len(top_days) - 1)]
+    
+    # Filter for the sample date
+    sample_df = all_df[all_df['timestamp'].dt.date == sample_date].copy() if sample_date else all_df.copy()
+    
+    if len(sample_df) == 0:
+        return go.Figure()
+    
+    # Create figure with multiple y-axes
+    fig = go.Figure()
+    
+    # Add battery state of charge
+    fig.add_trace(go.Scatter(
+        x=sample_df['timestamp'],
+        y=sample_df['battery_state_kwh'],
+        name='Batterij Laadtoestand (kWh)',
+        line=dict(color='rgba(31, 119, 180, 1)', width=2)
+    ))
+    
+    # Add surplus energy
+    fig.add_trace(go.Bar(
+        x=sample_df['timestamp'],
+        y=sample_df['surplus_energy_kwh'],
+        name='Surplus Energie (kWh)',
+        marker_color='rgba(50, 171, 96, 0.4)',
+        yaxis="y2"
+    ))
+    
+    # Add charged energy
+    fig.add_trace(go.Bar(
+        x=sample_df['timestamp'],
+        y=sample_df['charged_kwh'],
+        name='Opgeladen Energie (kWh)',
+        marker_color='rgba(50, 171, 96, 0.9)',
+        yaxis="y2"
+    ))
+    
+    # Add discharged energy
+    fig.add_trace(go.Bar(
+        x=sample_df['timestamp'],
+        y=sample_df['discharged_kwh'],
+        name='Ontladen Energie (kWh)',
+        marker_color='rgba(219, 64, 82, 0.7)',
+        yaxis="y2"
+    ))
+    
+    # Format the date for the title
+    date_str = sample_date.strftime('%d-%m-%Y') if hasattr(sample_date, 'strftime') else "sample period"
+    
+    # Customize layout
+    fig.update_layout(
+        title=f'Gedetailleerde Batterij Simulatie voor {date_str}',
+        xaxis_title='Tijd',
+        yaxis=dict(
+            title='Batterij Laadtoestand (kWh)',
+            titlefont=dict(color='rgba(31, 119, 180, 1)'),
+            tickfont=dict(color='rgba(31, 119, 180, 1)')
+        ),
+        yaxis2=dict(
+            title='Energie (kWh)',
+            titlefont=dict(color='rgba(50, 171, 96, 1)'),
+            tickfont=dict(color='rgba(50, 171, 96, 1)'),
+            overlaying='y',
+            side='right'
+        ),
         template='plotly_white',
         legend=dict(
             orientation="h",
@@ -295,7 +597,7 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         yaxis="y2"
     ))
     
-    # Customize layout - FIX: Removed extra closing parenthesis that was causing the syntax error
+    # Customize layout
     fig.update_layout(
         title='Boiler Energy Usage and Gas Savings',
         xaxis_title='Time',
