@@ -57,9 +57,9 @@ Functionaliteit: Grafieken en visualisaties voor de resultaten
 Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
 
 Naam: utils
-Status: Basis geïmplementeerd
-Bestandsnaam: utils/__init__.py, utils/ui_helpers.py
-Functionaliteit: Hulpfuncties gebruikt door verschillende modules, inclusief UI helpers zoals download links, error messages, en data formatting
+Status: Volledig geïmplementeerd
+Bestandsnaam: utils/__init__.py, utils/ui_helpers.py, utils/energy_calculations.py
+Functionaliteit: Hulpfuncties gebruikt door verschillende modules, inclusief UI helpers zoals download links, error messages, en data formatting, en energy berekeningen zoals surplus energie calculaties
 Afhankelijkheid: Geen
 
 Naam: components
