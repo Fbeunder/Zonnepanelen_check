@@ -1,0 +1,21 @@
+1. Volgende stappen:
+
+Must-haves:
+1. Basisstructuur opzetten: Map- en bestandsstructuur creëren volgens de modulestructuur
+2. Data processor implementeren: Functionaliteit voor het inladen en verwerken van CSV-data
+3. Config manager implementeren: Configuratiebeheer voor het opslaan van gebruikersvariabelen
+4. Basis-UI implementeren: Streamlit applicatie met navigatie tussen modules
+5. Warmwaterboiler module implementeren: Berekeningen voor warmwaterboileropslag
+6. Accu module implementeren: Berekeningen voor accu-opslag
+7. Visualisatiemodule implementeren: Grafieken en rapporten voor energiebesparingen
+8. Requirements en README toevoegen: Documentatie en installatie-instructies
+
+Nice-to-haves:
+1. Exportfunctionaliteit: Mogelijkheid om berekeningen en grafieken te exporteren als PDF of CSV
+2. Uitbreiding naar meer opslagmodules: Toevoegen van andere opslagopties zoals warmtepomp
+3. Vergelijkingsmodule: Directe vergelijking tussen verschillende opslagopties
+4. Historische analyse: Trends en seizoenspatronen in energieproductie en -verbruik visualiseren
+5. Automatische dataverversing: Mogelijkheid om nieuwe gegevens toe te voegen/te updaten
+6. Financiële prognosemodule: Berekening van terugverdientijd en ROI voor verschillende opties
+7. Gevoeligheidsanalyse: Impact van prijsveranderingen of efficiëntieverbeteringen testen
+8. Multi-user ondersteuning: Profielen voor verschillende huishoudens of installaties
