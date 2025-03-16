@@ -25,9 +25,9 @@ Functionaliteit: Inladen en verwerken van CSV-data met productie- en verbruiksge
 Afhankelijkheid: utils
 
 Naam: config_manager
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: config_manager.py
-Functionaliteit: Beheren van gebruikersconfiguratie en instellingen, opslaan van variabelen
+Functionaliteit: Beheren van gebruikersconfiguratie en instellingen, opslaan van variabelen, validatie van configuratiewaarden, backup en restore
 Afhankelijkheid: Geen
 
 Naam: storage_calculator
@@ -40,19 +40,19 @@ Naam: boiler_module
 Status: Basis geïmplementeerd
 Bestandsnaam: boiler_module.py
 Functionaliteit: Berekeningen voor warmwaterboileropslag, gasbesparing en kostenbesparing
-Afhankelijkheid: storage_calculator, data_processor
+Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: battery_module
 Status: Basis geïmplementeerd
 Bestandsnaam: battery_module.py
 Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing
-Afhankelijkheid: storage_calculator, data_processor
+Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: visualization
 Status: Basis geïmplementeerd
 Bestandsnaam: visualization.py
 Functionaliteit: Grafieken en visualisaties voor de resultaten
-Afhankelijkheid: Alle opslagmodules, data_processor
+Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
 
 Naam: utils
 Status: Basis geïmplementeerd
@@ -62,12 +62,12 @@ Afhankelijkheid: Geen
 
 Naam: tests
 Status: Gedeeltelijk geïmplementeerd
-Bestandsnaam: tests/test_data_processor.py
-Functionaliteit: Unit tests voor de DataProcessor module
-Afhankelijkheid: data_processor, utils
+Bestandsnaam: tests/test_data_processor.py, tests/test_config_manager.py
+Functionaliteit: Unit tests voor de DataProcessor en ConfigManager modules
+Afhankelijkheid: data_processor, config_manager, utils
 
 Naam: examples
 Status: Gedeeltelijk geïmplementeerd
-Bestandsnaam: examples/data_processor_example.py
-Functionaliteit: Voorbeeldimplementatie voor de DataProcessor module
-Afhankelijkheid: data_processor
+Bestandsnaam: examples/data_processor_example.py, examples/config_manager_example.py
+Functionaliteit: Voorbeeldimplementaties voor de DataProcessor en ConfigManager modules
+Afhankelijkheid: data_processor, config_manager
