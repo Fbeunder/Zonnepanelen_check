@@ -317,8 +317,8 @@ def show_boiler_page(data_processor, config_manager):
         st.subheader("Boiler Instellingen")
         
         # Get boiler configuration
-        boiler_config = config_manager.get_config('boiler')
-        economic_config = config_manager.get_config('economic')
+        boiler_config = config_manager.get_section('boiler')
+        economic_config = config_manager.get_section('economic')
         
         # Boiler settings
         boiler_capacity = st.number_input(
@@ -408,8 +408,8 @@ def show_boiler_page(data_processor, config_manager):
             with st.spinner("Bezig met berekenen..."):
                 # Create configuration for calculation
                 config = {
-                    'boiler': config_manager.get_config('boiler'),
-                    'economic': config_manager.get_config('economic')
+                    'boiler': config_manager.get_section('boiler'),
+                    'economic': config_manager.get_section('economic')
                 }
                 
                 # Create calculator and run calculation
@@ -466,8 +466,8 @@ def show_battery_page(data_processor, config_manager):
         st.subheader("Accu Instellingen")
         
         # Get battery configuration
-        battery_config = config_manager.get_config('battery')
-        economic_config = config_manager.get_config('economic')
+        battery_config = config_manager.get_section('battery')
+        economic_config = config_manager.get_section('economic')
         
         # Battery settings
         battery_capacity = st.number_input(
@@ -586,8 +586,8 @@ def show_battery_page(data_processor, config_manager):
             with st.spinner("Bezig met berekenen..."):
                 # Create configuration for calculation
                 config = {
-                    'battery': config_manager.get_config('battery'),
-                    'economic': config_manager.get_config('economic')
+                    'battery': config_manager.get_section('battery'),
+                    'economic': config_manager.get_section('economic')
                 }
                 
                 # Create calculator and run calculation
@@ -751,7 +751,7 @@ def show_visualization_page(data_processor, config_manager):
             # Prepare comparison data
             comparison_data = {}
             
-            economic_config = config_manager.get_config('economic')
+            economic_config = config_manager.get_section('economic')
             electricity_price = float(economic_config.get('electricity_price', 0.22))
             feed_in_tariff = float(economic_config.get('feed_in_tariff', 0.09))
             
@@ -917,7 +917,7 @@ def show_configuration_page(config_manager):
         st.subheader("Economische Parameters")
         
         # Get current economic config
-        economic_config = config_manager.get_config('economic')
+        economic_config = config_manager.get_section('economic')
         
         # Create form for economic parameters
         with st.form("economic_form"):
@@ -966,7 +966,7 @@ def show_configuration_page(config_manager):
         # Boiler parameters
         with mod_tab1:
             # Get current boiler config
-            boiler_config = config_manager.get_config('boiler')
+            boiler_config = config_manager.get_section('boiler')
             
             # Create form for boiler parameters
             with st.form("boiler_form"):
@@ -1026,7 +1026,7 @@ def show_configuration_page(config_manager):
         # Battery parameters
         with mod_tab2:
             # Get current battery config
-            battery_config = config_manager.get_config('battery')
+            battery_config = config_manager.get_section('battery')
             
             # Create form for battery parameters
             with st.form("battery_form"):
@@ -1143,7 +1143,7 @@ def show_configuration_page(config_manager):
             confirmation = st.checkbox("Ik begrijp dat alle huidige instellingen verloren gaan")
             
             if confirmation:
-                config_manager.reset_config()
+                config_manager.reset_to_defaults()
                 st.success("Configuratie gereset naar standaardwaarden!")
                 st.rerun()
 
