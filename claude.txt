@@ -1,0 +1,61 @@
+1. Projectoverzicht:
+Zonnepanelen_check is een applicatie die de overproductie van zonnepanelen analyseert en berekent wat de theoretische opbrengst zou zijn als deze energie opgeslagen zou worden. Het doel is om verschillende opslagmethoden te evalueren en te bepalen welke oplossingen het meest haalbaar en rendabel zijn op basis van historische productie- en verbruiksgegevens.
+
+2. Architectuur:
+De applicatie heeft een modulaire structuur met een Streamlit-gebaseerde webinterface. De kernmodules zijn:
+
+- Data-inlading en verwerking
+- Opslagmodules (Warmwaterboiler, Accu)
+- Visualisatie en rapportage
+- Configuratiebeheer
+- Utilities
+
+3. Modules:
+
+Naam: app.py
+Status: Nog niet gestart
+Bestandsnaam: app.py
+Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tussen modules verzorgt
+Afhankelijkheid: Alle andere modules
+
+Naam: data_processor
+Status: Nog niet gestart
+Bestandsnaam: data_processor.py
+Functionaliteit: Inladen en verwerken van CSV-data met productie- en verbruiksgegevens
+Afhankelijkheid: Geen
+
+Naam: config_manager
+Status: Nog niet gestart
+Bestandsnaam: config_manager.py
+Functionaliteit: Beheren van gebruikersconfiguratie en instellingen, opslaan van variabelen
+Afhankelijkheid: Geen
+
+Naam: storage_calculator
+Status: Nog niet gestart
+Bestandsnaam: storage_calculator.py
+Functionaliteit: Basisberekeningen voor energieopslag die door specifieke modules gebruikt worden
+Afhankelijkheid: data_processor
+
+Naam: boiler_module
+Status: Nog niet gestart
+Bestandsnaam: boiler_module.py
+Functionaliteit: Berekeningen voor warmwaterboileropslag, gasbesparing en kostenbesparing
+Afhankelijkheid: storage_calculator, data_processor
+
+Naam: battery_module
+Status: Nog niet gestart
+Bestandsnaam: battery_module.py
+Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing
+Afhankelijkheid: storage_calculator, data_processor
+
+Naam: visualization
+Status: Nog niet gestart
+Bestandsnaam: visualization.py
+Functionaliteit: Grafieken en visualisaties voor de resultaten
+Afhankelijkheid: Alle opslagmodules, data_processor
+
+Naam: utils
+Status: Nog niet gestart
+Bestandsnaam: utils.py
+Functionaliteit: Hulpfuncties gebruikt door verschillende modules
+Afhankelijkheid: Geen
