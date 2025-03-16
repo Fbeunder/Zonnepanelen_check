@@ -74,7 +74,7 @@ def main():
                 type="primary" if st.session_state.active_page == nav_option else "secondary"
             ):
                 st.session_state.active_page = nav_option
-                st.experimental_rerun()
+                st.rerun()
         
         # Show data status
         if data_processor.data is not None:
@@ -1145,7 +1145,7 @@ def show_configuration_page(config_manager):
             if confirmation:
                 config_manager.reset_config()
                 st.success("Configuratie gereset naar standaardwaarden!")
-                st.experimental_rerun()
+                st.rerun()
 
 
 if __name__ == "__main__":
