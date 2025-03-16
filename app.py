@@ -12,6 +12,9 @@ import tempfile
 import datetime
 from typing import Dict, List, Tuple, Union, Optional, Any
 import plotly.graph_objects as go
+import base64
+import io
+import pathlib
 
 # Import application modules
 import utils
@@ -225,9 +228,28 @@ def show_data_upload_page(data_processor, config_manager):
                         st.error("Fout bij het inladen van de data. Controleer het CSV-bestand format.")
                         
             elif use_example:
-                st.info("De functionaliteit voor het gebruik van voorbeelddata wordt nog toegevoegd.")
-                # For now, we'll just set a flag to continue with the app
-                # st.session_state['data_loaded'] = True
+                with st.spinner("Bezig met laden van voorbeelddata..."):
+                    # Get path to sample data file
+                    sample_file_path = os.path.join(
+                        pathlib.Path(__file__).parent, 
+                        "examples", 
+                        "sample_energy_data.csv"
+                    )
+                    
+                    # Check if sample file exists
+                    if os.path.exists(sample_file_path):
+                        # Load data from the sample file
+                        success = data_processor.load_data(sample_file_path)
+                        
+                        if success:
+                            st.session_state['data_loaded'] = True
+                            st.success("Voorbeelddata succesvol ingeladen!")
+                            # Update last used file in config
+                            config_manager.update_last_used_file("sample_energy_data.csv")
+                        else:
+                            st.error("Fout bij het inladen van de voorbeelddata.")
+                    else:
+                        st.error(f"Voorbeeldbestand niet gevonden. Pad: {sample_file_path}")
             else:
                 st.warning("Upload een CSV-bestand of gebruik de voorbeeld data.")
     
