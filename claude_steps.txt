@@ -1,7 +1,7 @@
 1. Volgende stappen:
 
 Must-haves:
-1. Basisstructuur opzetten: Map- en bestandsstructuur creëren volgens de modulestructuur
+1. ✅ Basisstructuur opzetten: Map- en bestandsstructuur creëren volgens de modulestructuur
 2. Data processor implementeren: Functionaliteit voor het inladen en verwerken van CSV-data
 3. Config manager implementeren: Configuratiebeheer voor het opslaan van gebruikersvariabelen
 4. Basis-UI implementeren: Streamlit applicatie met navigatie tussen modules
@@ -19,3 +19,5 @@ Nice-to-haves:
 6. Financiële prognosemodule: Berekening van terugverdientijd en ROI voor verschillende opties
 7. Gevoeligheidsanalyse: Impact van prijsveranderingen of efficiëntieverbeteringen testen
 8. Multi-user ondersteuning: Profielen voor verschillende huishoudens of installaties
+
+De vervolgstappen (must-haves 2-8) zijn noodzakelijk voor de basiswerking van de applicatie. Zonder deze functionaliteiten kan de applicatie niet naar behoren functioneren voor het beoogde doel: het analyseren van verschillende opslagopties voor zonne-energie.
