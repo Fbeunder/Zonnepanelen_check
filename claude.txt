@@ -13,9 +13,9 @@ De applicatie heeft een modulaire structuur met een Streamlit-gebaseerde webinte
 3. Modules:
 
 Naam: app.py
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: app.py
-Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tussen modules verzorgt
+Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tussen modules verzorgt. Bevat pagina's voor Home, Data Upload, Warmwaterboiler, Accu, Visualisatie en Configuratie.
 Afhankelijkheid: Alle andere modules
 
 Naam: data_processor
@@ -68,6 +68,6 @@ Afhankelijkheid: data_processor, config_manager, utils
 
 Naam: examples
 Status: Gedeeltelijk geïmplementeerd
-Bestandsnaam: examples/data_processor_example.py, examples/config_manager_example.py
-Functionaliteit: Voorbeeldimplementaties voor de DataProcessor en ConfigManager modules
+Bestandsnaam: examples/data_processor_example.py, examples/config_manager_example.py, examples/sample_energy_data.csv
+Functionaliteit: Voorbeeldimplementaties en testdata
 Afhankelijkheid: data_processor, config_manager
