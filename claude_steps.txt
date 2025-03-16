@@ -5,6 +5,7 @@ Must-haves:
 2. ✅ Data processor implementeren: Functionaliteit voor het inladen en verwerken van CSV-data
 3. ✅ Config manager implementeren: Configuratiebeheer voor het opslaan van gebruikersvariabelen
 4. ✅ Basis-UI implementeren: Streamlit applicatie met navigatie tussen modules
+   ✅ 4.1 App.py opsplitsen: Verbeterde modulaire opzet met pages, components en utils packages
 5. Warmwaterboiler module implementeren: Berekeningen voor warmwaterboileropslag
 6. Accu module implementeren: Berekeningen voor accu-opslag
 7. Visualisatiemodule implementeren: Grafieken en rapporten voor energiebesparingen
@@ -17,7 +18,7 @@ Nice-to-haves:
 4. Historische analyse: Trends en seizoenspatronen in energieproductie en -verbruik visualiseren
 5. Automatische dataverversing: Mogelijkheid om nieuwe gegevens toe te voegen/te updaten
 6. Financiële prognosemodule: Berekening van terugverdientijd en ROI voor verschillende opties
-7. Gevoeligheidsanalyse: Impact van prijsveranderingen of efficiëntieverbeteringen testen
+7. Gevoeligheidsanalyse: Impact van prijsveranderingen of efficiëtieverbeteringen testen
 8. Multi-user ondersteuning: Profielen voor verschillende huishoudens of installaties
 
-De vervolgstappen (must-haves 5-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het volledig implementeren van de Warmwaterboiler module, die de berekeningen voor warmwaterboileropslag verder uitwerkt op basis van de bestaande basis-implementatie.
+De vervolgstappen (must-haves 5-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het volledig implementeren van de Warmwaterboiler module, die de berekeningen voor warmwaterboileropslag verder uitwerkt op basis van de bestaande basis-implementatie. Het is belangrijk om hiervoor eerst te wachten tot de PR voor de modulaire structuur (#11) is gemerged, aangezien nieuwe features op basis van deze nieuwe structuur moeten worden ontwikkeld.
