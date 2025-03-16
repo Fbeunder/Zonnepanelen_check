@@ -42,36 +42,82 @@ def show_energy_chart(data, period='daily'):
         st.info("Geen data beschikbaar voor visualisatie.")
         return
     
-    if period == 'daily' and 'date' in data.columns:
-        x_values = data['date']
+    # Determine the appropriate date column based on period
+    if period == 'daily':
+        if 'date' in data.columns:
+            x_values = data['date']
+        else:
+            # Try to find alternative column names
+            alternative_columns = ['day', 'Date', 'datum']
+            for col in alternative_columns:
+                if col in data.columns:
+                    x_values = data[col]
+                    break
+            else:
+                # If no match is found, use the index as a last resort
+                st.warning(f"Geen datumkolom gevonden voor {period} periode. Gebruik index voor visualisatie.")
+                x_values = data.index
         title = 'Dagelijkse Energieproductie en -verbruik'
-    elif period == 'weekly' and 'week' in data.columns:
-        x_values = data['week']
+        
+    elif period == 'weekly':
+        if 'week_start' in data.columns:
+            x_values = data['week_start']
+        elif 'year_week' in data.columns:
+            x_values = data['year_week']
+        else:
+            st.warning(f"Geen weekkolom gevonden voor {period} periode.")
+            return
         title = 'Wekelijkse Energieproductie en -verbruik'
-    elif period == 'monthly' and 'month' in data.columns:
-        x_values = data['month']
+        
+    elif period == 'monthly':
+        if 'month_start' in data.columns:
+            x_values = data['month_start']
+        elif 'year_month' in data.columns:
+            x_values = data['year_month']
+        else:
+            st.warning(f"Geen maandkolom gevonden voor {period} periode.")
+            return
         title = 'Maandelijkse Energieproductie en -verbruik'
+        
     else:
-        st.warning(f"Kolommen voor periode '{period}' niet gevonden in data.")
+        st.warning(f"Onbekende periode: {period}")
         return
     
     # Create figure
     fig = go.Figure()
     
+    # Check for the different possible column name formats
+    production_columns = ['Energy Produced (kWh)', 'energy_produced_kwh', 'Energy Produced (Wh)_kWh']
+    consumption_columns = ['Energy Consumed (kWh)', 'energy_consumed_kwh', 'Energy Consumed (Wh)_kWh']
+    
+    # Find the first matching production column
+    production_col = None
+    for col in production_columns:
+        if col in data.columns:
+            production_col = col
+            break
+    
+    # Find the first matching consumption column
+    consumption_col = None
+    for col in consumption_columns:
+        if col in data.columns:
+            consumption_col = col
+            break
+    
     # Add production if available
-    if 'energy_produced_kwh' in data.columns:
+    if production_col is not None:
         fig.add_trace(go.Bar(
             x=x_values,
-            y=data['energy_produced_kwh'],
+            y=data[production_col],
             name='Productie',
             marker_color='rgba(50, 171, 96, 0.7)'
         ))
     
     # Add consumption if available
-    if 'energy_consumed_kwh' in data.columns:
+    if consumption_col is not None:
         fig.add_trace(go.Bar(
             x=x_values,
-            y=data['energy_consumed_kwh'],
+            y=data[consumption_col],
             name='Verbruik',
             marker_color='rgba(219, 64, 82, 0.7)'
         ))
