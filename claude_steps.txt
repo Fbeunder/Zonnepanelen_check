@@ -21,4 +21,9 @@ Nice-to-haves:
 7. Gevoeligheidsanalyse: Impact van prijsveranderingen of efficiëtieverbeteringen testen
 8. Multi-user ondersteuning: Profielen voor verschillende huishoudens of installaties
 
-De vervolgstappen (must-haves 5-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het volledig implementeren van de Warmwaterboiler module, die de berekeningen voor warmwaterboileropslag verder uitwerkt op basis van de bestaande basis-implementatie. Het is belangrijk om hiervoor eerst te wachten tot de PR voor de modulaire structuur (#11) is gemerged, aangezien nieuwe features op basis van deze nieuwe structuur moeten worden ontwikkeld.
+Bugfixes:
+1. ✅ Fix importproblemen in modulaire structuur: Zorgen dat modules elkaar correct kunnen importeren
+2. ✅ CSV parsing verbeteren: Ondersteuning voor verschillende formaten en delimiters
+3. ✅ Productie & Verbruik (Dagelijks) grafiek fix: Oplossen van het probleem dat de grafiek niet getoond wordt
+
+De vervolgstappen (must-haves 5-8) zijn noodzakelijk voor de basiswerking van de applicatie. De volgende stap is het volledig implementeren van de Warmwaterboiler module (Issue #9), die de berekeningen voor warmwaterboileropslag verder uitwerkt op basis van de bestaande basis-implementatie.
