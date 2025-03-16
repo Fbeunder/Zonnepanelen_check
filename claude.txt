@@ -45,9 +45,9 @@ Functionaliteit: Geavanceerde berekeningen voor warmwaterboileropslag, energieve
 Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: battery_module
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: battery_module.py
-Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing
+Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing, simulatie van laad- en ontlaadgedrag, financiële analyse, ROI berekening, batterijdegradatie-analyse en dagelijkse, wekelijkse en maandelijkse aggregaties
 Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: visualization
@@ -76,9 +76,9 @@ Afhankelijkheid: components, utils, alle core modules
 
 Naam: tests
 Status: Gedeeltelijk geïmplementeerd
-Bestandsnaam: tests/test_data_processor.py, tests/test_config_manager.py, tests/test_boiler_module.py
-Functionaliteit: Unit tests voor de DataProcessor, ConfigManager en BoilerCalculator modules
-Afhankelijkheid: data_processor, config_manager, boiler_module, utils
+Bestandsnaam: tests/test_data_processor.py, tests/test_config_manager.py, tests/test_boiler_module.py, tests/test_battery_module.py
+Functionaliteit: Unit tests voor de DataProcessor, ConfigManager, BoilerCalculator en BatteryCalculator modules
+Afhankelijkheid: data_processor, config_manager, boiler_module, battery_module, utils
 
 Naam: examples
 Status: Gedeeltelijk geïmplementeerd
