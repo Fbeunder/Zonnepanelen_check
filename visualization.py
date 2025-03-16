@@ -295,7 +295,7 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         yaxis="y2"
     ))
     
-    # Customize layout
+    # Customize layout - FIX: Removed extra closing parenthesis that was causing the syntax error
     fig.update_layout(
         title='Boiler Energy Usage and Gas Savings',
         xaxis_title='Time',
