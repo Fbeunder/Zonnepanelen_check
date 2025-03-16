@@ -33,15 +33,15 @@ Functionaliteit: Beheren van gebruikersconfiguratie en instellingen, opslaan van
 Afhankelijkheid: Geen
 
 Naam: storage_calculator
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: storage_calculator.py
-Functionaliteit: Basisberekeningen voor energieopslag die door specifieke modules gebruikt worden
+Functionaliteit: Basisberekeningen voor energieopslag die door specifieke modules gebruikt worden, inclusief abstracte basisklasse en simulatie utilities
 Afhankelijkheid: data_processor
 
 Naam: boiler_module
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: boiler_module.py
-Functionaliteit: Berekeningen voor warmwaterboileropslag, gasbesparing en kostenbesparing
+Functionaliteit: Geavanceerde berekeningen voor warmwaterboileropslag, energieverbruik, gasbesparing en kostenbesparing; tijd- en temperatuurgebaseerde simulatie; ondersteuning voor variabel warmwaterverbruik; dagelijkse, wekelijkse en maandelijkse aggregaties
 Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: battery_module
@@ -51,9 +51,9 @@ Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing
 Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: visualization
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: visualization.py
-Functionaliteit: Grafieken en visualisaties voor de resultaten
+Functionaliteit: Grafieken en visualisaties voor de resultaten, inclusief dagoverzichten, maandoverzichten, simulatiedetails en vergelijkingen
 Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
 
 Naam: utils
@@ -76,9 +76,9 @@ Afhankelijkheid: components, utils, alle core modules
 
 Naam: tests
 Status: Gedeeltelijk geïmplementeerd
-Bestandsnaam: tests/test_data_processor.py, tests/test_config_manager.py
-Functionaliteit: Unit tests voor de DataProcessor en ConfigManager modules
-Afhankelijkheid: data_processor, config_manager, utils
+Bestandsnaam: tests/test_data_processor.py, tests/test_config_manager.py, tests/test_boiler_module.py
+Functionaliteit: Unit tests voor de DataProcessor, ConfigManager en BoilerCalculator modules
+Afhankelijkheid: data_processor, config_manager, boiler_module, utils
 
 Naam: examples
 Status: Gedeeltelijk geïmplementeerd
