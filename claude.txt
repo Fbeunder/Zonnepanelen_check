@@ -19,10 +19,10 @@ Functionaliteit: Hoofdapplicatie die Streamlit UI initialiseert en navigatie tus
 Afhankelijkheid: Alle andere modules
 
 Naam: data_processor
-Status: Basis geïmplementeerd
+Status: Volledig geïmplementeerd
 Bestandsnaam: data_processor.py
-Functionaliteit: Inladen en verwerken van CSV-data met productie- en verbruiksgegevens
-Afhankelijkheid: Geen
+Functionaliteit: Inladen en verwerken van CSV-data met productie- en verbruiksgegevens, inclusief validatie, anomaliedetectie, en berekening van dag/week/maand totalen
+Afhankelijkheid: utils
 
 Naam: config_manager
 Status: Basis geïmplementeerd
@@ -59,3 +59,15 @@ Status: Basis geïmplementeerd
 Bestandsnaam: utils.py
 Functionaliteit: Hulpfuncties gebruikt door verschillende modules
 Afhankelijkheid: Geen
+
+Naam: tests
+Status: Gedeeltelijk geïmplementeerd
+Bestandsnaam: tests/test_data_processor.py
+Functionaliteit: Unit tests voor de DataProcessor module
+Afhankelijkheid: data_processor, utils
+
+Naam: examples
+Status: Gedeeltelijk geïmplementeerd
+Bestandsnaam: examples/data_processor_example.py
+Functionaliteit: Voorbeeldimplementatie voor de DataProcessor module
+Afhankelijkheid: data_processor
