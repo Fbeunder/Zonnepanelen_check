@@ -9,6 +9,7 @@ Must-haves:
 5. ✅ Warmwaterboiler module implementeren: Berekeningen voor warmwaterboileropslag
 6. ✅ Accu module implementeren: Berekeningen voor accu-opslag (PR #23)
 7. Visualisatiemodule implementeren: Grafieken en rapporten voor energiebesparingen
+   🔄 7.1 Refactoren van visualisatiemodule: Opsplitsen in logische submodules (PR #25)
 8. Requirements en README toevoegen: Documentatie en installatie-instructies
 
 Nice-to-haves:
@@ -28,10 +29,12 @@ Bugfixes:
 4. ✅ Bug in warmwaterboiler pagina: Foutmelding na 'bereken' knop door syntax fout in visualization.py (PR #21)
 5. ✅ Bug in warmwaterboiler pagina: Oplossen van foutmelding na klikken op 'bereken' knop (Issue #22)
 
-De vervolgstappen (must-haves 7-8) zijn noodzakelijk voor de basiswerking van de applicatie. 
+De huidige focus ligt op de afronding van Pull Request #25, die de visualisatiemodule refactort door deze op te splitsen in logische modules:
+- energy_plots.py: Grafieken voor energieproductie en -verbruik
+- battery_plots.py: Grafieken voor batterijsimulatie en -prestaties
+- boiler_plots.py: Grafieken voor boilersimulatie en -prestaties
+- utility_plots.py: Hulpfuncties en generieke plotfuncties
 
-De volgende stap is het implementeren van de Visualisatiemodule (Must-have 7), die een centrale plaats zal zijn waar gebruikers de resultaten van verschillende opslagmethoden kunnen bekijken en vergelijken. Dit omvat het consolideren van grafieken en visuals die al in de verschillende modules aanwezig zijn, evenals nieuwe visualisaties die meerdere opties naast elkaar tonen voor gemakkelijke vergelijking.
+Na de afronding van PR #25 zal de volgende stap zijn om de algemene visualisatiemodule (Must-have 7) volledig te implementeren met geconsolideerde grafieken voor vergelijking van verschillende opslagmethoden. Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8).
 
-Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8) om gebruikers te helpen de applicatie te installeren en te gebruiken.
-
-Al deze vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie.
+De vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie.
