@@ -10,6 +10,7 @@ Must-haves:
 6. ✅ Accu module implementeren: Berekeningen voor accu-opslag (PR #23)
 7. Visualisatiemodule implementeren: Grafieken en rapporten voor energiebesparingen
    ✅ 7.1 Refactoren van visualisatiemodule: Opsplitsen in logische submodules (PR #25)
+   ▶️ 7.2 Implementeren van vergelijkingsvisualisaties: Grafieken voor vergelijking van verschillende opslagmethoden
 8. Requirements en README toevoegen: Documentatie en installatie-instructies
 
 Nice-to-haves:
@@ -28,10 +29,10 @@ Bugfixes:
 3. ✅ Productie & Verbruik (Dagelijks) grafiek fix: Oplossen van het probleem dat de grafiek niet getoond wordt
 4. ✅ Bug in warmwaterboiler pagina: Foutmelding na 'bereken' knop door syntax fout in visualization.py (PR #21)
 5. ✅ Bug in warmwaterboiler pagina: Oplossen van foutmelding na klikken op 'bereken' knop (Issue #22)
-6. 🔄 Bug in warmwaterboiler pagina: Error in plot_boiler_energy_usage layout configuratie (PR #27)
+6. 🔄 Bug in warmwaterboiler pagina: Error in plot_boiler_energy_usage layout configuratie (PR #28)
 
-De huidige focus ligt op de afronding van Pull Request #27, die een bug oplost in de boiler_plots.py module. Deze bug veroorzaakt een foutmelding op de pagina 'Warmwaterboiler' onder 'Boiler Energiegebruik en Gasbesparing'.
+De huidige focus ligt op het afronden van PR #28, die een bug oplost in de boiler_plots.py module. Deze PR vervangt PR #27 met een betere oplossing voor de fout die een foutmelding veroorzaakt op de pagina 'Warmwaterboiler' onder 'Boiler Energiegebruik en Gasbesparing'.
 
-Na de merge van PR #27 zal de volgende stap zijn om de volledige visualisatiemodule (Must-have 7) verder uit te breiden met geconsolideerde grafieken voor vergelijking van verschillende opslagmethoden. Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8).
+Na de merge van PR #28 zal de volgende stap zijn om Must-have 7.2 te implementeren: het uitbreiden van de visualisatiemodule met grafieken voor vergelijking van verschillende opslagmethoden (boiler en accu). Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8).
 
-De vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie.
+De vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie. Met name de vergelijkingsvisualisaties zijn essentieel voor het hoofddoel van de applicatie: het kunnen bepalen welke opslagmethode het meest rendabel is op basis van de gebruikerspecifieke data.
