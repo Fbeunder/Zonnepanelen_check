@@ -73,33 +73,25 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         yaxis="y2"
     ))
     
-    # Customize layout with simplified configuration
-    layout_config = {
-        'title': 'Boiler Energy Usage and Gas Savings',
-        'xaxis_title': 'Time',
-        'yaxis_title': 'Energy (kWh)',
-        'yaxis2': {
-            'title': 'Gas Saved (m³)',
-            'overlaying': 'y',
-            'side': 'right'
-        },
-        'template': 'plotly_white',
-        'legend': {
-            'orientation': 'h',
-            'yanchor': 'bottom',
-            'y': 1.02,
-            'xanchor': 'right',
-            'x': 1
-        }
-    }
-    
-    # Update layout with a try-except to handle potential configuration errors
-    try:
-        fig.update_layout(**layout_config)
-    except Exception as e:
-        print(f"Error updating layout: {e}")
-        # Fallback to minimal configuration if detailed config fails
-        fig.update_layout(title='Boiler Energy Usage and Gas Savings')
+    # Update layout with direct parameters instead of using a layout_config dictionary
+    fig.update_layout(
+        title='Boiler Energy Usage and Gas Savings',
+        xaxis_title='Time',
+        yaxis_title='Energy (kWh)',
+        yaxis2=dict(
+            title='Gas Saved (m³)',
+            overlaying='y',
+            side='right'
+        ),
+        template='plotly_white',
+        legend=dict(
+            orientation='h',
+            yanchor='bottom',
+            y=1.02,
+            xanchor='right',
+            x=1
+        )
+    )
     
     return fig
 
