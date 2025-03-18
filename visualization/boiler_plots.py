@@ -101,7 +101,7 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
             side='left'
         ),
         yaxis2=dict(
-            title='Gas Saved (m³)',
+            title=dict(text='Gas Saved (m³)', font=dict(color='rgba(219, 64, 82, 1)')),
             overlaying='y',
             side='right',
             showgrid=False
@@ -174,8 +174,7 @@ def plot_boiler_daily_performance(boiler_results: Dict[str, Any]) -> go.Figure:
         xaxis_title='Date',
         yaxis_title='Gas (m³)',
         yaxis2=dict(
-            title='Coverage (%)',
-            titlefont=dict(color='rgba(219, 64, 82, 1)'),
+            title=dict(text='Coverage (%)', font=dict(color='rgba(219, 64, 82, 1)')),
             tickfont=dict(color='rgba(219, 64, 82, 1)'),
             overlaying='y',
             side='right',
@@ -245,8 +244,7 @@ def plot_boiler_monthly_performance(boiler_results: Dict[str, Any]) -> go.Figure
         xaxis_title='Month',
         yaxis_title='Savings (€)',
         yaxis2=dict(
-            title='Utilization (%)',
-            titlefont=dict(color='rgba(219, 64, 82, 1)'),
+            title=dict(text='Utilization (%)', font=dict(color='rgba(219, 64, 82, 1)')),
             tickfont=dict(color='rgba(219, 64, 82, 1)'),
             overlaying='y',
             side='right',
@@ -344,20 +342,17 @@ def plot_boiler_simulation_detail(boiler_results: Dict[str, Any]) -> go.Figure:
             title=f'Boiler Simulation Detail for {sample_date}',
             xaxis_title='Time',
             yaxis=dict(
-                title='Temperature (°C)',
-                titlefont=dict(color='rgba(31, 119, 180, 1)'),
+                title=dict(text='Temperature (°C)', font=dict(color='rgba(31, 119, 180, 1)')),
                 tickfont=dict(color='rgba(31, 119, 180, 1)')
             ),
             yaxis2=dict(
-                title='Energy (kWh)',
-                titlefont=dict(color='rgba(50, 171, 96, 1)'),
+                title=dict(text='Energy (kWh)', font=dict(color='rgba(50, 171, 96, 1)')),
                 tickfont=dict(color='rgba(50, 171, 96, 1)'),
                 overlaying='y',
                 side='right'
             ),
             yaxis3=dict(
-                title='Water (L)',
-                titlefont=dict(color='rgba(148, 103, 189, 1)'),
+                title=dict(text='Water (L)', font=dict(color='rgba(148, 103, 189, 1)')),
                 tickfont=dict(color='rgba(148, 103, 189, 1)'),
                 overlaying='y',
                 anchor='free',
