@@ -55,7 +55,7 @@ Status: Gedeeltelijk geïmplementeerd
 Bestandsnaam: visualization/__init__.py, visualization/data_plots.py, visualization/boiler_plots.py, visualization/battery_plots.py, visualization/comparison_plots.py
 Functionaliteit: Grafieken en visualisaties voor de resultaten, inclusief dagoverzichten, maandoverzichten, simulatiedetails, vergelijkingen en exports
 Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
-Details: De module is opgesplitst in logische submodules maar comparison_plots.py moet nog geïmplementeerd worden (Issue #29). Een bugfix voor boiler_plots.py is in PR #31 behandeld.
+Details: De module is opgesplitst in logische submodules maar comparison_plots.py moet nog geïmplementeerd worden (Issue #29). Bugfixes voor boiler_plots.py zijn toegepast in PR #31 en PR #33 (in behandeling) om diverse visualisatie-problemen op te lossen.
 
 Naam: utils
 Status: Volledig geïmplementeerd
