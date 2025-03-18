@@ -24,7 +24,18 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         return go.Figure()
     
     # Get the result dataframe
-    df = boiler_results['result_df']
+    df = boiler_results['result_df'].copy()  # Use copy to avoid modifying original data
+    
+    # Handle missing or NaN values
+    df.fillna(0, inplace=True)  # Replace NaN with 0
+    
+    # Check if all required columns are present
+    required_columns = {'timestamp', 'energy_needed_kwh', 'energy_used_kwh', 'gas_saved_m3'}
+    if not required_columns.issubset(df.columns):
+        missing_cols = required_columns - set(df.columns)
+        print(f"Warning: Missing required columns: {missing_cols}")
+        for col in missing_cols:
+            df[col] = 0  # Add missing columns with zeros
     
     # If timestamps are too granular, aggregate by day
     if len(df) > 100:
@@ -44,6 +55,11 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
     else:
         plot_df = df
         x_col = 'timestamp'
+    
+    # Check for and handle duplicate timestamps
+    if plot_df[x_col].duplicated().any():
+        print("Warning: Duplicate timestamps detected. Sorting values...")
+        plot_df = plot_df.sort_values(by=x_col).drop_duplicates(subset=[x_col], keep='first')
     
     # Create figure with secondary y-axis
     fig = go.Figure()
@@ -73,15 +89,22 @@ def plot_boiler_energy_usage(boiler_results: Dict[str, Any]) -> go.Figure:
         yaxis="y2"
     ))
     
-    # Update layout with direct parameters instead of using a layout_config dictionary
+    # Update layout with improved configuration for yaxis2
     fig.update_layout(
         title='Boiler Energy Usage and Gas Savings',
-        xaxis_title='Time',
-        yaxis_title='Energy (kWh)',
+        xaxis=dict(
+            title='Time', 
+            type='category' if pd.api.types.is_object_dtype(plot_df[x_col]) else 'date'
+        ),
+        yaxis=dict(
+            title='Energy (kWh)', 
+            side='left'
+        ),
         yaxis2=dict(
             title='Gas Saved (m³)',
             overlaying='y',
-            side='right'
+            side='right',
+            showgrid=False
         ),
         template='plotly_white',
         legend=dict(
