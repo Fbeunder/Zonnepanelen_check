@@ -29,10 +29,11 @@ Bugfixes:
 3. ✅ Productie & Verbruik (Dagelijks) grafiek fix: Oplossen van het probleem dat de grafiek niet getoond wordt
 4. ✅ Bug in warmwaterboiler pagina: Foutmelding na 'bereken' knop door syntax fout in visualization.py (PR #21)
 5. ✅ Bug in warmwaterboiler pagina: Oplossen van foutmelding na klikken op 'bereken' knop (Issue #22)
-6. 🔄 Bug in warmwaterboiler pagina: Error in plot_boiler_energy_usage layout configuratie (PR #31)
+6. ✅ Bug in warmwaterboiler pagina: Error in plot_boiler_energy_usage layout configuratie (PR #31)
+7. 🔄 Bug in warmwaterboiler pagina: Error met 'titlefont' property in Plotly grafieken (PR #33)
 
-De huidige focus ligt op het afronden van PR #31, die een bug oplost in de boiler_plots.py module. Deze PR verhelpt een foutmelding op de pagina 'Warmwaterboiler' onder 'Boiler Energiegebruik en Gasbesparing' door verbeterde error handling, dataframe verwerking en layout configuratie.
+De huidige focus ligt op het afronden van PR #33, die een bug oplost in de boiler_plots.py module. Deze PR verhelpt de foutmelding "Did you mean 'tickfont'?" door de verouderde 'titlefont' property te vervangen met het nieuwere Plotly formaat 'title=dict(text="...", font=dict(...))'.
 
-Na de merge van PR #31 zal de volgende stap zijn om Must-have 7.2 te implementeren: het uitbreiden van de visualisatiemodule met grafieken voor vergelijking van verschillende opslagmethoden (boiler en accu), zoals beschreven in Issue #29. Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8).
+Na de merge van PR #33 zal de volgende stap zijn om Must-have 7.2 te implementeren: het uitbreiden van de visualisatiemodule met grafieken voor vergelijking van verschillende opslagmethoden (boiler en accu), zoals beschreven in Issue #29. Daarna volgt het toevoegen van de requirements.txt en een uitgebreide README.md (Must-have 8).
 
 De vervolgstappen zijn noodzakelijk voor de basiswerking van de applicatie. Met name de vergelijkingsvisualisaties zijn essentieel voor het hoofddoel van de applicatie: het kunnen bepalen welke opslagmethode het meest rendabel is op basis van de gebruikerspecifieke data.
