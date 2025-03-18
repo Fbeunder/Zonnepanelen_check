@@ -51,10 +51,11 @@ Functionaliteit: Berekeningen voor accu-opslag en kostenbesparing, simulatie van
 Afhankelijkheid: storage_calculator, data_processor, config_manager
 
 Naam: visualization
-Status: Volledig geïmplementeerd
-Bestandsnaam: visualization.py
-Functionaliteit: Grafieken en visualisaties voor de resultaten, inclusief dagoverzichten, maandoverzichten, simulatiedetails en vergelijkingen
+Status: Gedeeltelijk geïmplementeerd
+Bestandsnaam: visualization/__init__.py, visualization/data_plots.py, visualization/boiler_plots.py, visualization/battery_plots.py, visualization/comparison_plots.py
+Functionaliteit: Grafieken en visualisaties voor de resultaten, inclusief dagoverzichten, maandoverzichten, simulatiedetails, vergelijkingen en exports
 Afhankelijkheid: Alle opslagmodules, data_processor, config_manager
+Details: De module is opgesplitst in logische submodules maar comparison_plots.py moet nog geïmplementeerd worden (Issue #29)
 
 Naam: utils
 Status: Volledig geïmplementeerd
@@ -69,10 +70,11 @@ Functionaliteit: Herbruikbare UI componenten zoals sidebar navigatie en data wee
 Afhankelijkheid: utils
 
 Naam: pages
-Status: Volledig geïmplementeerd
-Bestandsnaam: pages/__init__.py, pages/home.py, pages/data_upload.py, pages/boiler.py, pages/battery.py, pages/visualization.py, pages/configuration.py
+Status: Gedeeltelijk geïmplementeerd
+Bestandsnaam: pages/__init__.py, pages/home.py, pages/data_upload.py, pages/boiler.py, pages/battery.py, pages/visualization.py, pages/configuration.py, pages/comparison.py
 Functionaliteit: Implementatie van de verschillende pagina's in de applicatie
 Afhankelijkheid: components, utils, alle core modules
+Details: pages/comparison.py moet nog geïmplementeerd worden (Issue #29)
 
 Naam: tests
 Status: Gedeeltelijk geïmplementeerd
